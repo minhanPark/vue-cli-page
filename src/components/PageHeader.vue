@@ -14,16 +14,16 @@
         </select>
       </div>
       <div class="input--wrapper">
-        <input v-model="value" placeholder="입력해주세요." />
+        <input v-model="value" placeholder="입력해주세요." v-on:keyup.enter="handleSearch" />
       </div>
     </div>
     <div class="btn--wrapper">
       <ul class="btn--container">
-        <li>
+        <li v-on:click="clearValue">
           조건 초기화
           <i class="fas fa-undo"></i>
         </li>
-        <li>
+        <li v-on:click="handleSearch">
           조회
           <i class="fas fa-search"></i>
         </li>
@@ -33,16 +33,43 @@
       <span>컨디션: {{condition}}</span>
       <span>값: {{value}}</span>
     </div>
+    <Modal v-if="showModal">
+      <h3 slot="header">오류 발생</h3>
+      <div slot="body">
+        <p>검색 조건 및 검색어를 입력해주세요.</p>
+        <button @click="showModal = false">확인</button>
+      </div>
+    </Modal>
   </div>
 </template>
 
 <script>
+import Modal from "./common/Modal.vue";
+
 export default {
   data() {
     return {
       condition: "선택없음",
-      value: ""
+      value: "",
+      showModal: false
     };
+  },
+  methods: {
+    handleSearch() {
+      if (this.condition === "선택없음" || this.value === "") {
+        this.showModal = true;
+      } else {
+        this.$emit("findLists", this.condition, this.value);
+        this.clearValue();
+      }
+    },
+    clearValue() {
+      this.condition = "선택없음";
+      this.value = "";
+    }
+  },
+  components: {
+    Modal
   }
 };
 </script>

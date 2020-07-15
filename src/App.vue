@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <PageHeader></PageHeader>
+    <PageHeader v-on:findLists="getLists"></PageHeader>
     <PageLists></PageLists>
     <PageDetail></PageDetail>
   </div>
@@ -65,8 +65,17 @@ export default {
           email: "africa@co.kr",
           registrationDate: "2020-07-01"
         }
-      ]
+      ],
+      searchedList: []
     };
+  },
+  methods: {
+    getLists(condition, value) {
+      const temp = condition === "franchiseCode" ? "code" : "franchiseName";
+      const lists = this.franchiseLists.filter(list => list[temp] === value);
+      this.searchedList = lists;
+      console.log(this.searchedList);
+    }
   }
 };
 </script>
