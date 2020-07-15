@@ -7,14 +7,14 @@
         <h4>조회조건</h4>
       </div>
       <div class="select--wrapper">
-        <select>
+        <select v-model="condition">
           <option value="선택없음">선택없음</option>
           <option value="franchiseCode">가맹점코드</option>
           <option value="franchiseName">가맹점명</option>
         </select>
       </div>
       <div class="input--wrapper">
-        <input placeholder="입력해주세요." />
+        <input v-model="value" placeholder="입력해주세요." />
       </div>
     </div>
     <div class="btn--wrapper">
@@ -28,6 +28,10 @@
           <i class="fas fa-search"></i>
         </li>
       </ul>
+    </div>
+    <div>
+      <span>컨디션: {{condition}}</span>
+      <span>값: {{value}}</span>
     </div>
   </div>
 </template>
