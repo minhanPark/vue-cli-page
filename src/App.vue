@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <PageHeader v-on:findLists="getLists"></PageHeader>
-    <PageLists></PageLists>
+    <PageLists v-bind:data="searchedList"></PageLists>
     <PageDetail></PageDetail>
   </div>
 </template>
@@ -66,14 +66,14 @@ export default {
           registrationDate: "2020-07-01"
         }
       ],
-      searchedList: []
+      searchedList: {}
     };
   },
   methods: {
     getLists(condition, value) {
       const temp = condition === "franchiseCode" ? "code" : "franchiseName";
       const lists = this.franchiseLists.filter(list => list[temp] === value);
-      this.searchedList = lists;
+      this.searchedList = lists[0];
       console.log(this.searchedList);
     }
   }

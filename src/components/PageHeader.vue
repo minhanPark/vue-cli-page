@@ -29,10 +29,6 @@
         </li>
       </ul>
     </div>
-    <div>
-      <span>컨디션: {{condition}}</span>
-      <span>값: {{value}}</span>
-    </div>
     <Modal v-if="showModal">
       <h3 slot="header">오류 발생</h3>
       <div slot="body">
