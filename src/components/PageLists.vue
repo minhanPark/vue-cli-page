@@ -13,7 +13,7 @@
         <tr v-if="isEmptyList(data) === true">
           <td colspan="6">데이터가 없습니다.</td>
         </tr>
-        <tr v-else class="item" v-on:click="handleClick">
+        <tr v-else class="item" v-on:click="handleClick(data.code)">
           <td>{{data.code}}</td>
           <td>{{data.franchiseName}}</td>
           <td>{{data.loc}}</td>
@@ -33,8 +33,9 @@ export default {
     isEmptyList(param) {
       return Object.keys(param).length === 0 && param.constructor === Object;
     },
-    handleClick() {
+    handleClick(code) {
       console.log("clicked");
+      this.$emit("getC", code);
     }
   }
 };
@@ -49,6 +50,7 @@ table {
   table-layout: fixed;
   border-collapse: collapse;
   border: 1.5px solid #bdc3c7;
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
 }
 th,
 td {

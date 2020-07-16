@@ -1,8 +1,8 @@
 <template>
   <div id="app">
-    <PageHeader v-on:findLists="getLists"></PageHeader>
-    <PageLists v-bind:data="searchedList"></PageLists>
-    <PageDetail></PageDetail>
+    <PageHeader v-on:findLists="getLists" v-on:clearValue="clearListValue"></PageHeader>
+    <PageLists v-bind:data="searchedList" v-on:getC="getSeletion"></PageLists>
+    <PageDetail v-bind:propsdata="selectedList"></PageDetail>
   </div>
 </template>
 
@@ -66,7 +66,8 @@ export default {
           registrationDate: "2020-07-01"
         }
       ],
-      searchedList: {}
+      searchedList: {},
+      selectedList: {}
     };
   },
   methods: {
@@ -74,7 +75,16 @@ export default {
       const temp = condition === "franchiseCode" ? "code" : "franchiseName";
       const lists = this.franchiseLists.filter(list => list[temp] === value);
       this.searchedList = lists[0];
+      // 검색시에 선택된 데이터가 있다면 비우기
+      this.selectedList = {};
       console.log(this.searchedList);
+    },
+    getSeletion(code) {
+      this.selectedList = this.franchiseLists.find(list => list.code === code);
+    },
+    clearListValue() {
+      this.searchedList = {};
+      this.selectedList = "";
     }
   }
 };

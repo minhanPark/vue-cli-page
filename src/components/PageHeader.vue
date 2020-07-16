@@ -19,7 +19,7 @@
     </div>
     <div class="btn--wrapper">
       <ul class="btn--container">
-        <li v-on:click="clearValue">
+        <li v-on:click="clearAllValue">
           조건 초기화
           <i class="fas fa-undo"></i>
         </li>
@@ -62,6 +62,10 @@ export default {
     clearValue() {
       this.condition = "선택없음";
       this.value = "";
+    },
+    clearAllValue() {
+      this.clearValue();
+      this.$emit("clearValue");
     }
   },
   components: {
